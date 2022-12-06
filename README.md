@@ -3,6 +3,7 @@ Read more about Advent of Code at https://adventofcode.com/
 
 | Day | Language | Status |
 | --- | -------- | ------ |
+| Day 6 | Go | ★★ |
 | Day 5 | Go | ★★ |
 | Day 4 | Go | ★★ |
 | Day 3 | Go | ★★ |
