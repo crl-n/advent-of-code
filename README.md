@@ -3,6 +3,7 @@ Read more about Advent of Code at https://adventofcode.com/
 
 | Day | Language | Status |
 | --- | -------- | ------ |
+| Day 9 | Typescript | ★★ |
 | Day 8 | Typescript | ★★ |
 | Day 7 | Typescript | ★★ |
 | Day 6 | Go | ★★ |
