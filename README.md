@@ -3,5 +3,5 @@ Made using Kotlin.
 
 ## Running
 ```
-kotlinc -script 01.kts
+kotlinc -script 01-A.kts 01-A.input
 ```
