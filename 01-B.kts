@@ -1,11 +1,49 @@
 import java.io.File
 
 val input = """
-1abc2
-pqr3stu8vwx
-a1b2c3d4e5f
-treb7uchet
+two1nine
+eightwothree
+abcone2threexyz
+xtwone3four
+4nineeightseven2
+zoneight234
+7pqrstsixteen
 """
+
+fun buildRegexPattern(keys: Set<String>): Regex {
+	val escapedKeys = keys.map { Regex.escape(it) }
+
+	val joinedKeys = escapedKeys.joinToString("|")
+
+	val regex = Regex("^(?:$joinedKeys)")
+	
+	return regex
+}
+
+val literals = hashMapOf(
+	"one" to 1,
+	"two" to 2,
+	"three" to 3,
+	"four" to 4,
+	"five" to 5,
+	"six" to 6,
+	"seven" to 7,
+	"eight" to 8,
+	"nine" to 9
+)
+val literalRegex = buildRegexPattern(literals.keys)
+
+fun valueFromChar(char: Char): Int {
+	return char.toString().toInt()
+}
+
+fun valueFromLiteral(line: String): Int {
+	val match = literalRegex.find(line)!!.value
+
+	val value = literals[match] ?: 0
+
+	return value
+}
 
 fun calibrate(array: List<String>): Int {
 	var totalSum = 0
@@ -13,17 +51,33 @@ fun calibrate(array: List<String>): Int {
 	array.forEach { line ->
 		var lineSum = 0
 
-		for (char in line) {
-			if (char.isDigit()) {
-				lineSum += char.toString().toInt() * 10
-				break
+		for (i in 0 until line.length) {
+			when {
+				line[i].isDigit() -> {
+					lineSum += valueFromChar(line[i]) * 10
+					break
+				}
+				literalRegex.containsMatchIn(line.substring(i)) -> {
+					lineSum += valueFromLiteral(line.substring(i)) * 10
+					break
+				}
+				else -> continue
 			}
 		}
 
-		for (char in line.reversed()) {
-			if (char.isDigit()) {
-				lineSum += char.toString().toInt()
-				break
+		for (i in line.length - 1 downTo 0) {
+			val char = line[i]
+
+			when {
+				line[i].isDigit() -> {
+					lineSum += char.toString().toInt()
+					break
+				}
+				literalRegex.containsMatchIn(line.substring(i)) -> {
+					lineSum += valueFromLiteral(line.substring(i))
+					break
+				}
+				else -> continue
 			}
 		}
 
