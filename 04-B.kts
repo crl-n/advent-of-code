@@ -32,16 +32,14 @@ fun main(args: Array<String>) {
 				i + j + 1
 		})
 	}
-	var cards = (0..(input.size - 1)).toMutableList()
+	
+	var counts = MutableList(input.size) { 1 }
 
-	var sum = input.size
-	while (cards.size > 0) {
-		lookup[cards.removeAt(0)].forEach {
-			sum++
-			cards.add(it)
-		}
+	for (i in 0..input.size - 1) {
+		lookup[i].forEach { counts[it] += counts[i] }
 	}
 
+	val sum = counts.reduce {acc, x -> acc + x}
 
 	println("Num of scratchcard: $sum")
 }
