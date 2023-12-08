@@ -1,5 +1,13 @@
 import java.io.File
 
+fun lcm(a: Long, b: Long): Long {
+	return a * b / gcd(a, b)
+}
+
+fun gcd(a: Long, b: Long): Long {
+	return if (b == 0L) a else gcd(b, a % b)
+}
+
 fun main(args: Array<String>) {
 	var input = emptyList<String>()
 
@@ -39,24 +47,26 @@ fun main(args: Array<String>) {
 	}
 
 	var currs = starts.toList()
-	var steps = 0L
-	var i = 0
-	while (true) {
-		if (pattern[i % pattern.length] == 'L') {
+
+	var steps = 0
+	var loops = mutableListOf<Long>()
+
+	while (currs.size > 0) {
+		if (pattern[steps % pattern.length] == 'L') {
 			currs = currs.map { nodes[it]!!.first }
 		} else {
 			currs = currs.map { nodes[it]!!.second }
 		}
-		steps++
-		i++
-		i = i % pattern.length
-		if (currs.all { it[2] == 'Z' } ) {
-			break
+		if (currs.any { it[2] == 'Z' }) {
+			loops.add((steps + 1).toLong())
+			currs = currs.filter { it[2] != 'Z' }
 		}
+		steps++
 	}
 
-	println("Steps: $steps")
+	val lcmVal = loops.reduce { acc, x -> lcm(acc, x)}
 
+	println("Steps: $lcmVal")
 }
 
 main(args)
