@@ -2,9 +2,10 @@ package main
 
 import (
 	"aoc15/utils"
-	"bytes"
 	"crypto/md5"
+	"encoding/hex"
 	"fmt"
+	"strconv"
 	"strings"
 )
 
@@ -16,16 +17,14 @@ func main() {
 	var hash [16]byte
 
 	for {
-		s = fmt.Sprintf("%s%d", input, n)
+		s = input + strconv.Itoa(n)
 		hash = md5.Sum([]byte(s))
-		if bytes.HasPrefix(hash[:], []byte{0, 0, 0, 0, 0}) {
+		hex := hex.EncodeToString(hash[:])
+		if strings.HasPrefix(hex, "00000") {
 			break
 		}
 		n++
 	}
 
-	fmt.Println(s)
-	fmt.Println(hash)
-	fmt.Println(string(hash[:]))
 	fmt.Println(n)
 }
