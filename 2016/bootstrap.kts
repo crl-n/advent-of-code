@@ -26,23 +26,23 @@ fun isValidPartArg(part: String): Boolean {
     return validParts.contains(part.toUpperCase())
 }
 
-fun createDayDirectory(day: Int): Boolean {
+fun createDayDirectory(day: String): Boolean {
     return File("./$day").mkdir()
 }
 
-fun createPartKtsFile(day: Int, part: String): Boolean {
+fun createPartKtsFile(day: String, part: String): Boolean {
     return File("./$day/$day-$part.kts").createNewFile()
 }
 
-fun createInputFile(day: Int): Boolean {
+fun createInputFile(day: String): Boolean {
     return File("./$day/$day.input").createNewFile()
 }
 
-fun inputFileExists(day: Int): Boolean {
+fun inputFileExists(day: String): Boolean {
     return File("./$day/$day.input").exists()
 }
 
-fun getInput(day: Int): String? {
+fun getInput(day: String): String? {
     var session = System.getenv("AOCSESSION")
     if (session == null) {
         println("Could not get input. Set AOCSESSION env variable to authenticate.")
@@ -73,7 +73,7 @@ fun getInput(day: Int): String? {
     return response.body()
 }
 
-fun bootstrap(day: Int, part: String) {
+fun bootstrap(day: String, part: String) {
     println("Bootstrapping day $day part $part")
 
     createDayDirectory(day)
@@ -91,7 +91,7 @@ fun main(args: Array<String>) {
         println("Usage: kotlinc -script bootstrap.kts [day] [part]")
         println("Example: kotlinc -script bootstrap.kts 01 A")
     } else {
-        val day = args[0].toInt()
+        val day = args[0].toInt().toString().padStart(2, '0')
         val part = args[1].toUpperCase()
         bootstrap(day, part)
     }
