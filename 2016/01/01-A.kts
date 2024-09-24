@@ -1,4 +1,5 @@
 import java.io.File
+import kotlin.math.abs
 
 data class Instruction(val turn: Char, val dist: Int)
 enum class Direction { NONE, E, S, W, N} // East, South, West, North. None at start.
@@ -60,5 +61,5 @@ for (instr in instructions) {
     coord.update(direction, instr.dist)
 }
 
-val solution = coord.x + coord.y
+val solution = abs(coord.x) + abs(coord.y)
 println("Solution: $solution")
