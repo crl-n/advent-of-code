@@ -26,19 +26,19 @@ fun isValidPartArg(part: String): Boolean {
     return validParts.contains(part.toUpperCase())
 }
 
-fun createDayDirectory(day: Int): Boolean {
+fun createDayDirectory(day: String): Boolean {
     return File("./$day").mkdir()
 }
 
-fun createPartKtsFile(day: Int, part: String): Boolean {
+fun createPartKtsFile(day: String, part: String): Boolean {
     return File("./$day/$day-$part.kts").createNewFile()
 }
 
-fun createInputFile(day: Int): Boolean {
+fun createInputFile(day: String): Boolean {
     return File("./$day/$day.input").createNewFile()
 }
 
-fun inputFileExists(day: Int): Boolean {
+fun inputFileExists(day: String): Boolean {
     return File("./$day/$day.input").exists()
 }
 
@@ -76,13 +76,14 @@ fun getInput(day: Int): String? {
 fun bootstrap(day: Int, part: String) {
     println("Bootstrapping day $day part $part")
 
-    createDayDirectory(day)
-    createPartKtsFile(day, part)
+    val dayPadded = day.toString().padStart(2, '0')
+    createDayDirectory(dayPadded)
+    createPartKtsFile(dayPadded, part)
 
-    if (!inputFileExists(day)) {
-        createInputFile(day)
+    if (!inputFileExists(dayPadded)) {
+        createInputFile(dayPadded)
         val input = getInput(day)
-        input?.let { input -> File("./$day/$day.input").writeText(input) }
+        input?.let { input -> File("./$dayPadded/$dayPadded.input").writeText(input) }
     }
 }
 
