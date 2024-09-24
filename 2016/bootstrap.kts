@@ -73,12 +73,22 @@ fun getInput(day: Int): String? {
     return response.body()
 }
 
+fun writePartKtsBoilerplate(dayPadded: String, part: String) {
+    val boilerPlate = """
+        import java.io.File
+        
+        val input = File("./$dayPadded/$dayPadded.input").readLines()
+    """.trimIndent()
+    File("./$dayPadded/$dayPadded-$part.kts").writeText(boilerPlate)
+}
+
 fun bootstrap(day: Int, part: String) {
     println("Bootstrapping day $day part $part")
 
     val dayPadded = day.toString().padStart(2, '0')
     createDayDirectory(dayPadded)
-    createPartKtsFile(dayPadded, part)
+    val partKtsFileCreated = createPartKtsFile(dayPadded, part)
+    if (partKtsFileCreated) writePartKtsBoilerplate(dayPadded, part)
 
     if (!inputFileExists(dayPadded)) {
         createInputFile(dayPadded)
