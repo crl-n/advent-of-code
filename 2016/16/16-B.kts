@@ -1,5 +1,4 @@
 import java.io.File
-import java.util.BitSet
 
 // ** My code from part A works and executes in a matter of
 // ** seconds, BUT it requires a larger than default heap

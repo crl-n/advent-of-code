@@ -1,5 +1,4 @@
 import java.io.File
-import java.util.BitSet
 
 val input = File("./16/16.input").readText().trimEnd()
 
