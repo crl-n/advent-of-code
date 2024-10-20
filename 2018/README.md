@@ -5,7 +5,7 @@ Solved with Java 23. Each exercise part is a self-contained program.
 For code to run you have to enable Java preview features.
 You can do this by passing a flag to `java`:
 ```shell
-java --enable-preview 01/01-A.java
+java --enable-preview 01/Day01PartA.java
 ```
 
 If running more than one program, you may prefer to use the
